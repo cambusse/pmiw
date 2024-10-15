@@ -1,0 +1,76 @@
+let imagenes = []
+  let Empieza = 0; // Índice de la imagen actual
+let boton; // Variable para el botón
+let Aceptar; // Botón para aceptar
+let Rechazar; // Botón para rechazar
+function preload() {
+
+  let imagenes = [
+    "data/aa.jpg", "data/a1.jpg", "data/a2.jpg", "data/a3.jpg", "data/a4.png",
+    "data/af.jpg", "data/b3.jpg", "data/bf.jpg", "data/bisf.jpg",
+    "data/c4.jpg", "data/c5.jpg", "data/c6.jpg", "data/c7.jpg",
+    "data/cf.jpg", "data/d7.jpg", "data/df.jpg"
+  ];
+
+  for (let i = 0; i < imagenes.length; i++) {
+    let img = loadImage(imagenes[i]); // Carga cada imagen
+    imagenes.push(img);
+  }
+}
+
+function setup() {
+  createCanvas (640, 480);
+  // Botón para la siguiente imagen
+  botonSiguiente = createButton('Siguiente Imagen');
+  botonSiguiente.position(10, 10);
+  botonSiguiente.mousePressed(cambiarImagen); // Asigna la función al botón
+
+   botonAceptar = createButton('Aceptar');
+  botonAceptar.position(10, 40);
+  botonAceptar.mousePressed(irAA3); // Asigna la función al botón
+
+  botonRechazar = createButton('Rechazar');
+  botonRechazar.position(600, 40);
+  botonRechazar.mousePressed(irAB3); // Asigna la función al botón
+}
+
+
+function draw() {
+  background(220);
+
+  // Dibuja la imagen actual
+  image(imagenes[Empieza], 0, 0, 640, 480); // Dibuja la imagen actual
+}
+
+function cambiarImagen() {
+  // Cambia al siguiente índice
+  Empieza++;
+  if (Empieza >= imagenes.length) {
+    Empieza = 0; // Regresa al inicio si se supera el número de imágenes
+  }
+}
+function cambiarImagen() {
+  // Cambia al siguiente índice
+  Empieza++;
+  if (Empieza >= imagenes.length) {
+    Empieza = 0; // Regresa al inicio si se supera el número de imágenes
+  }
+}
+
+function irA2() {
+  Empieza = imagenes[2]; // Cambia al índice de la imagen "a2"
+}
+
+function irA3() {
+  Empieza = imagenes[3]; // Cambia al índice de la imagen "a3"
+}
+
+// Función para mostrar la imagen "a2.jpg" y habilitar botones
+function mostrarA2() {
+  Empieza = [1]; // Cambia a la imagen "a2.jpg"
+  botonAceptar.show();
+  botonRechazar.show();
+}
+
+// Llama a esta función cuando quieras mostrar "a2.jpg"
+mostrarA2();
