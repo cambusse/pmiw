@@ -1,0 +1,162 @@
+let imagenes = [];
+let Empieza = 0; // Índice de la imagen actual
+let botones = {}; // Objeto para almacenar botones
+
+function preload() {
+  let pantallas = [
+    "data/aa.jpg", "data/a1.jpg", "data/a2.jpg", "data/a3.jpg", "data/a4.png",
+    "data/af.jpg", "data/b3.jpg", "data/bf.jpg", "data/bisf.jpg",
+    "data/c4.jpg", "data/c5.jpg", "data/c6.jpg", "data/c7.jpg",
+    "data/cf.jpg", "data/d7.jpg", "data/df.jpg"
+  ];
+
+  for (let i = 0; i < pantallas.length; i++) {
+    loadImage(pantallas[i], 
+      img => {
+        imagenes.push(img);
+        console.log(`${pantallas[i]} cargada`);
+      }, 
+      () => console.log(`${pantallas[i]} no se pudo cargar`));
+  }
+}
+
+function setup() {
+  createCanvas(640, 480);
+  
+  // Inicializar botones
+  botones.aceptar = createButton('Aceptar');
+  botones.aceptar.position(10, 40);
+  botones.aceptar.mousePressed(irA3);
+  botones.aceptar.hide();
+
+  botones.rechazar = createButton('Rechazar');
+  botones.rechazar.position(600, 40);
+  botones.rechazar.mousePressed(irB3);
+  botones.rechazar.hide();
+
+  botones.ayudar = createButton('Ayudar');
+  botones.ayudar.position(10, 40);
+  botones.ayudar.mousePressed(irAF);
+  botones.ayudar.hide();
+
+  botones.traicionar = createButton('Traicionar');
+  botones.traicionar.position(600, 40);
+  botones.traicionar.mousePressed(irA4);
+  botones.traicionar.hide();
+
+  botones.portalOriginal = createButton('Portal Original');
+  botones.portalOriginal.position(10, 40);
+  botones.portalOriginal.mousePressed(irBF);
+  botones.portalOriginal.hide();
+
+  botones.portalDesconocido = createButton('Portal Desconocido');
+  botones.portalDesconocido.position(600, 40);
+  botones.portalDesconocido.mousePressed(irA4);
+  botones.portalDesconocido.hide();
+
+  botones.ignorar = createButton('Ignorar');
+  botones.ignorar.position(10, 40);
+  botones.ignorar.mousePressed(irIgnorar);
+  botones.ignorar.hide();
+
+  botones.investigar = createButton('Investigar');
+  botones.investigar.position(600, 40);
+  botones.investigar.mousePressed(irInvestigar);
+  botones.investigar.hide();
+
+  botones.izquierda = createButton('Izquierda');
+  botones.izquierda.position(10, 40);
+  botones.izquierda.mousePressed(irIzquierda);
+  botones.izquierda.hide();
+
+  botones.derecha = createButton('Derecha');
+  botones.derecha.position(600, 40);
+  botones.derecha.mousePressed(irDerecha);
+  botones.derecha.hide();
+
+  mostrarAA(); // Muestra la imagen inicial
+}
+
+function draw() {
+  background(280);
+
+  if (imagenes[Empieza]) {
+    image(imagenes[Empieza], 0, 0, 640, 480); // Dibuja la imagen actual
+  }
+}
+
+function cambiarImagen() {
+  Empieza = (Empieza + 1) % imagenes.length; // Cambia a la siguiente imagen
+  ocultarBotones();
+}
+
+function ocultarBotones() {
+  for (let boton in botones) {
+    botones[boton].hide();
+  }
+}
+
+function mostrarAA() {
+  Empieza = 0; // Cambia a la imagen "aa.jpg"
+  ocultarBotones();
+  image(imagenes[Empieza], 0, 0, 640, 480); // Muestra la imagen "aa.jpg"
+  botones.aceptar.show(); // Muestra el botón "Aceptar"
+  botones.rechazar.show(); // Muestra el botón "Rechazar"
+}
+
+function irA3() {
+  Empieza = 3; // Cambia a la imagen "a3.jpg"
+  ocultarBotones();
+  mostrarBotones([botones.ayudar, botones.traicionar]);
+}
+
+function irB3() {
+  Empieza = 6; // Cambia a la imagen "3b.jpg"
+  ocultarBotones();
+  mostrarBotones([botones.portalOriginal, botones.portalDesconocido]);
+}
+
+function irA4() {
+  Empieza = 4; // Cambia a la imagen "a4.jpg"
+  ocultarBotones();
+  mostrarBotones([botones.portalOriginal, botones.portalDesconocido]);
+}
+
+function irAF() {
+  Empieza = 5; // Cambia a la imagen "af.jpg"
+  ocultarBotones();
+}
+
+function irBF() {
+  Empieza = 7; // Cambia a la imagen "bf.jpg"
+  ocultarBotones();
+}
+
+function irIgnorar() {
+  Empieza = 8; // Cambia a la imagen "bisf.jpg"
+  ocultarBotones();
+}
+
+function irInvestigar() {
+  Empieza = 9; // Cambia a la imagen "c5.jpg"
+  ocultarBotones();
+}
+
+function irC6() {
+  Empieza = 10; // Cambia a la imagen "c6.jpg"
+  ocultarBotones();
+  mostrarBotones([botones.izquierda, botones.derecha]);
+}
+
+function irIzquierda() {
+  Empieza = 11; // Cambia a la imagen "c7.jpg"
+  ocultarBotones();
+}
+
+function irDerecha() {
+  Empieza = 12; // Cambia a la imagen "d7.jpg"
+  ocultarBotones();
+}
+
+// Inicializa la pantalla "aa"
+mostrarAA();
